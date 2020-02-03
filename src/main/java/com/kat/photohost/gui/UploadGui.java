@@ -9,7 +9,7 @@ import com.vaadin.flow.component.textfield.TextField;
 import com.vaadin.flow.router.Route;
 import org.springframework.beans.factory.annotation.Autowired;
 
-@Route("uploadImage")
+@Route("upload")
 public class UploadGui extends VerticalLayout {
 
     private ImageUploader imageUploader;
@@ -24,7 +24,7 @@ public class UploadGui extends VerticalLayout {
         button.addClickListener(clickEvent -> {
 
 
-            String picture = imageUploader.uploadFile(textField.getValue());
+            String picture = imageUploader.uploadAndSaveFile(textField.getValue());
             Image image = new Image(picture, "no picture!");
             label.setText("Upload successful!");
             add(label);
