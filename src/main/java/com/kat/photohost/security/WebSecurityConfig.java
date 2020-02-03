@@ -37,7 +37,8 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
     protected void configure(HttpSecurity http) throws Exception {
         http
                 .authorizeRequests()
-                .antMatchers("/test1").authenticated()
+                .antMatchers("/test1").hasRole("USER")
+                .antMatchers("/test2").hasRole("ADMIN")
                 .and()
                 .formLogin().permitAll();
     }
@@ -49,8 +50,10 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 
     @EventListener(ApplicationReadyEvent.class)
     public void TestUser(){
-        User user = new User("Kat", passwordEncoder().encode("abc123"), "USER");
+        User user = new User("Meow", passwordEncoder().encode("meow123"), "ROLE_USER");
+        User admin = new User("Kat", passwordEncoder().encode("abc123"), "ROLE_ADMIN");
         userRepository.save(user);
+        userRepository.save(admin);
     }
 
 
